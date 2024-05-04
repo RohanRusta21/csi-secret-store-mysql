@@ -23,7 +23,7 @@ kubectl exec -it vault-0 -- /bin/sh
 
 ## Create the KV store and secret from the Vault UI or CLI 
 ```
-vault kv put secret/mysql-credentials username="root" password="Password123"
+vault kv put secret/mysql-credentials username="root" password="password123"
 vault kv get secret/mysql-credentials
 ```
 
