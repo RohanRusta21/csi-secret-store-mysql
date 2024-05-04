@@ -1,0 +1,33 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mysql-pod
+spec:
+  serviceAccountName: secret-sa
+  containers:
+    - name: mysql
+      image: mysql:latest  # Use the MySQL image
+      env:
+        - name: MYSQL_ROOT_PASSWORD  # Define the root password for MySQL
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: password
+        - name: MYSQL_USER  # Define the MySQL username
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: username
+      ports:
+        - containerPort: 3306  # Expose MySQL port
+      volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+  volumes:
+    - name: secrets-store-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "mysql-credentials-vault"  # Updated to use the MySQL-specific Vault connection
