@@ -47,7 +47,7 @@ EOF
 vault write auth/kubernetes/role/mysql-secret-role \
     bound_service_account_names=secret-sa \
     bound_service_account_namespaces=default \
-    policies=mysql-read-only \
+    policies=mysql-read \
     ttl=40m
 ```
 
