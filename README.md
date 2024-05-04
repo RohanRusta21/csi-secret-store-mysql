@@ -35,9 +35,9 @@ vault write auth/kubernetes/config kubernetes_host="https://172.30.1.2:6443" // 
 ```
 ## Create a policy
 ```
-vault policy write mysql-read-write - <<EOF
+vault policy write mysql-read - <<EOF
 path "secret/data/mysql-credentials" {
-  capabilities = ["read", "write"]
+  capabilities = ["read"]
 }
 EOF
 ```
